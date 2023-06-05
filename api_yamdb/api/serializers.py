@@ -36,9 +36,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'username', 'email', 'first_name', 'last_name', 'bio', 'role'
-        )
+        # fields = (
+        #     'username', 'email', 'first_name', 'last_name', 'bio', 'role'
+        # )
+        exclude = ('id', 'password', 'last_login', 'is_superuser', 'is_staff',
+                   'is_active', 'date_joined', 'confirmation_code', 'groups',
+                   'user_permissions')
 
     def validate_username(self, username):
         if username in 'me':
@@ -70,15 +73,7 @@ class TitleGETSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Title
-        fields = (
-            'id',
-            'name',
-            'year',
-            'rating',
-            'description',
-            'genre',
-            'category'
-        )
+        fields = '__all__'
 
 
 class TitleSerializer(serializers.ModelSerializer):
@@ -95,8 +90,7 @@ class TitleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Title
-        fields = (
-            'name', 'year', 'description', 'genre', 'category')
+        fields = '__all__'
 
     def to_representation(self, title):
 
@@ -112,8 +106,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = (
-            'id', 'text', 'author', 'score', 'pub_date')
+        exclude = ('title',)
 
     def validate(self, data):
 
@@ -136,5 +129,4 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = (
-            'id', 'text', 'author', 'pub_date')
+        exclude = ('review',)

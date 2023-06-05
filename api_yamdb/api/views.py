@@ -2,7 +2,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, mixins, permissions, status, viewsets
+from rest_framework import filters, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
@@ -22,8 +22,7 @@ from .serializers import (CategorySerializer, CommentSerializer,
 from .utils import send_confirmation_code
 
 
-class UserCreateViewSet(mixins.CreateModelMixin,
-                        viewsets.GenericViewSet):
+class UserCreateViewSet(CreateListDestroyViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
@@ -47,8 +46,7 @@ class UserCreateViewSet(mixins.CreateModelMixin,
         return Response(request.data, status=status.HTTP_200_OK)
 
 
-class UserReceiveTokenViewSet(mixins.CreateModelMixin,
-                              viewsets.GenericViewSet):
+class UserReceiveTokenViewSet(CreateListDestroyViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserRecieveTokenSerializer
@@ -68,9 +66,7 @@ class UserReceiveTokenViewSet(mixins.CreateModelMixin,
         return Response(message, status=status.HTTP_200_OK)
 
 
-class UserViewSet(mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  viewsets.GenericViewSet):
+class UserViewSet(CreateListDestroyViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
