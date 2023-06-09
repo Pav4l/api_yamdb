@@ -583,7 +583,7 @@ Change your account information. Access rights: Any authorized user. The email a
 
 ### Authors
 
- - Аnton Makhnachev; email: makhnachev.anton@yandex.ru :
+ - Anton Makhnachev; email: makhnachev.anton@yandex.ru :
    
    registration and authentication system, access rights,
    working with a token, email confirmation system;	
